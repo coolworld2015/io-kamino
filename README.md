@@ -1,5 +1,5 @@
-# Ionic Base
-git clone https://github.com/coolworld2015/io-base.git
+# Ionic Kamino
+git clone https://github.com/coolworld2015/io-kamino.git
 -------------------------------------------------------------------------------------------------
 npm install -g cordova ionic
 -------------------------------------------------------------------------------------------------
