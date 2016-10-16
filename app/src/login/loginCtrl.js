@@ -5,9 +5,9 @@
         .module('app')
         .controller('LoginCtrl', LoginCtrl);
 
-    LoginCtrl.$inject = ['$ionicLoading', '$rootScope', '$state', 'UsersService', 'AuditService'];
+    LoginCtrl.$inject = ['$ionicLoading', '$rootScope', '$http', '$q', '$state', 'UsersService', 'AuditService'];
 
-    function LoginCtrl($ionicLoading, $rootScope, $state, UsersService, AuditService) {
+    function LoginCtrl($ionicLoading, $rootScope, $http, $q, $state, UsersService, AuditService) {
         var vm = this;
 
         angular.extend(vm, {
@@ -22,17 +22,81 @@
         init();
 
         function init() {
-            vm.name = '';
-            vm.pass = '';
+			//vm.name = 'sergey.sydorenko@wdc.com';
+			//vm.pass = 'Test1234';				
+			
+			vm.name = 'kamino.web.team@gmail.com';
+			vm.pass = 'Kamino1234';
             $rootScope.currentUser = undefined;
             $rootScope.raisedError = false;
         }
+		
+		function toLogin() {
+            if (vm.form.$invalid) {
+                return;
+            }
+			console.log(vm.name + ' - ' + vm.pass);
+			
+            $ionicLoading.show({
+                template: '<ion-spinner></ion-spinner>'
+            });
+			
+			var item = {
+				client_id: 'gpQeYeZGke7da9ag6bYpyJIZcaXIJxF2',
+				connection: 'Username-Password-Authentication',
+				device: '123456789',
+				grant_type: 'password',
+				password: vm.pass,
+				scope: 'openid offline_access',
+				username: vm.name
+			};
+							
+			var url = 'https://wdc-qa1.auth0.com/oauth/ro';
+				return $http.post(url, item)
+					.then(function (result) {
+						$rootScope.access_token = result.data.access_token;
+						$rootScope.id_token = result.data.id_token;
+							
+							return $http.get('https://wdc-qa1.auth0.com/userinfo',
+								{
+									headers: {'Authorization': 'Bearer ' + $rootScope.access_token}
+								})
+								.then(function (result) {
+									$rootScope.user_id = result.data.user_id;
 
+									return $http.get('https://qa1-device.remotewd1.com/device/v1/user/' + $rootScope.user_id, 
+										{
+											headers: {'Authorization': 'Bearer ' + $rootScope.id_token}
+										})
+										.then(function (result) {
+											$rootScope.deviceId = result.data.data[0].deviceId;
+											$rootScope.currentUser = {
+												name: vm.name,
+												pass: vm.pass
+											};
+											$state.go('root.home');
+											$ionicLoading.hide();
+										})
+										.catch(function (reject) {
+											return $q.reject(reject);
+										});
+
+								})
+								.catch(function (reject) {
+									return $q.reject(reject);
+								});
+																			
+					})
+					.catch(function (reject) {
+						return $q.reject(reject);
+					});
+		}
+			
         function change() {
             vm.error = false;
         }        
 		
-		function toLogin() {
+		function toLogin1() {
             if (vm.form.$invalid) {
                 return;
             }
