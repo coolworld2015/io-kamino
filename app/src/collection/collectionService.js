@@ -10,10 +10,35 @@
     function CollectionService($rootScope, $http, $q) {
         return {
 			items: [],
+			kaminoGetFilesRoot: kaminoGetFilesRoot,
 			kaminoGetFiles: kaminoGetFiles,
 			errorHandler: errorHandler,
             _sort: sort
         };
+		
+		function kaminoGetFilesRoot() {
+			var deviceURI = 'https://qa1-proxy1.wdtest2.com:9443/' + $rootScope.deviceId;
+
+			$rootScope.deviceURI = deviceURI;
+			var getFilesURI = '/sdk/v2/filesSearch/parents?ids=root&limit=1000';
+
+			return $http.get(deviceURI + getFilesURI, 
+				{
+					headers: {'Authorization': 'Bearer ' + $rootScope.id_token}
+				})
+				.then(function (result) {
+					var items;
+					if (result.data.files) {
+						result.data.files.sort(sort);
+						
+						items = result.data.files.filter(function(el){
+							return el.mimeType != 'application/octet-stream'
+						});
+					}
+					return items;
+				})
+				.catch(errorHandler);
+		}
 		
 		function kaminoGetFiles() {
 			var deviceURI = 'https://qa1-proxy1.wdtest2.com:9443/' + $rootScope.deviceId;

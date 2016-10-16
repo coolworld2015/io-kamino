@@ -27,12 +27,14 @@
                 template: '<ion-spinner></ion-spinner>'
             });
 
+			$rootScope.rootID = 'root';
+
             vm.filesAndFolders = [];
             vm.itemsFilter = [];
             vm.clear = false;
             vm.searchShowed = false;
 
-            CollectionService.kaminoGetFiles()
+            CollectionService.kaminoGetFilesRoot()
                 .then(function (results) {
 					if (results) {
 						vm.folders = results.filter(function(el){
@@ -90,7 +92,7 @@
             vm.clear = false;
             vm.searchShowed = false;
 						
-            CollectionService.kaminoGetFiles()
+            CollectionService.kaminoGetFilesRoot()
                 .then(function (results) {
 					if (results) {
 						vm.folders = results.filter(function(el){
