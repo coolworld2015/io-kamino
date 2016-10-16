@@ -1,4 +1,4 @@
-<ion-view view-title="My Cloud ({{collectionCtrl.itemsFilter.length}} / {{collectionCtrl.items.length}})"
+<ion-view view-title="My Cloud ({{collectionCtrl.itemsFilter.length}} / {{collectionCtrl.filesAndFolders.length}})"
           ng-click="collectionCtrl.queryClear()">
 
     <ion-nav-buttons side="secondary">
@@ -21,13 +21,13 @@
         <ion-refresher on-refresh="collectionCtrl.doRefresh()"></ion-refresher>
 
         <ion-list>
-            <div collection-repeat="item in (collectionCtrl.itemsFilter = (collectionCtrl.items | filter: collectionCtrl.query))"
+            <div collection-repeat="item in (collectionCtrl.itemsFilter = (collectionCtrl.filesAndFolders | filter: collectionCtrl.query))"
                     type="item-text-wrap" ng-click="collectionCtrl.itemDetails(item)">
 
-                <a class="item item-thumbnail-left">
-                    <img ng-src="{{item.pic}}">
-                    <h2>{{item.name}}</h2>
-                    <p>{{item.group}} - {{item.category}}</p>
+                <a class="item item-thumbnail-left" >
+                    <img ng-src="{{collectionCtrl.getThumbnailURI(item)}}" style="border-radius:20%">
+                    <h2 style="margin-top: 20px; font-weight: bold;">{{item.name}}</h2>
+                    <p>{{item.size/1024 | number:2}} Kb</p>
                 </a>
 
 			</div>
