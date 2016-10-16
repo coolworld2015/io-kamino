@@ -3,11 +3,11 @@
 
     angular
         .module('app')
-        .controller('PhoneDetailsCtrl', PhoneDetailsCtrl);
+        .controller('CollectionDetailsCtrl', CollectionDetailsCtrl);
 
-    PhoneDetailsCtrl.$inject = ['$stateParams'];
+    CollectionDetailsCtrl.$inject = ['$stateParams'];
 
-    function PhoneDetailsCtrl($stateParams) {
+    function CollectionDetailsCtrl($stateParams) {
         var vm = this;
 
         angular.extend(vm, {

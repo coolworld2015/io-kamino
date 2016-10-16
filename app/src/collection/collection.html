@@ -1,0 +1,41 @@
+<ion-view view-title="My Cloud ({{collectionCtrl.itemsFilter.length}} / {{collectionCtrl.items.length}})"
+          ng-click="collectionCtrl.queryClear()">
+
+    <ion-nav-buttons side="secondary">
+        <button class="button button-icon ion-navicon"
+                ng-click="collectionCtrl.showSearch()">
+        </button>
+    </ion-nav-buttons>
+
+    <div class="bar bar-subheader item-input-inset bar-light">
+        <label class="item-input-wrapper">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="search" ng-model="collectionCtrl.query.name" ng-change="collectionCtrl.queryChanged()"
+                   placeholder="Search">
+            <i class="ion-close-round" ng-show="collectionCtrl.clear"></i>
+        </label>
+    </div>
+
+    <ion-content class="has-subheader">
+
+        <ion-refresher on-refresh="collectionCtrl.doRefresh()"></ion-refresher>
+
+        <ion-list>
+            <div collection-repeat="item in (collectionCtrl.itemsFilter = (collectionCtrl.items | filter: collectionCtrl.query))"
+                    type="item-text-wrap" ng-click="collectionCtrl.itemDetails(item)">
+
+                <a class="item item-thumbnail-left">
+                    <img ng-src="{{item.pic}}">
+                    <h2>{{item.name}}</h2>
+                    <p>{{item.group}} - {{item.category}}</p>
+                </a>
+
+			</div>
+		</ion-list>
+    </ion-content>
+
+    <div ng-if="collectionCtrl.searchShowed" class="badge-div" ng-click="collectionCtrl.itemsSearch()">
+        <span class="badge-icon ion-search"></span>
+    </div>
+
+</ion-view>

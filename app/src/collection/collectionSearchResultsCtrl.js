@@ -3,27 +3,26 @@
 
     angular
         .module('app')
-        .controller('PhonesSearchResultsCtrl', PhonesSearchResultsCtrl);
+        .controller('CollectionSearchResultsCtrl', CollectionSearchResultsCtrl);
 
-    PhonesSearchResultsCtrl.$inject = ['$scope', '$rootScope', '$state', 'items',
+    CollectionSearchResultsCtrl.$inject = ['$scope', '$rootScope', '$state', 'items',
         '$ionicLoading', '$ionicPopup', '$ionicListDelegate'];
 
-    function PhonesSearchResultsCtrl($scope, $rootScope, $state, items, $ionicLoading, $ionicPopup, $ionicListDelegate) {
+    function CollectionSearchResultsCtrl($scope, $rootScope, $state, items, $ionicLoading, $ionicPopup, $ionicListDelegate) {
         var vm = this;
 
         angular.extend(vm, {
             init: init,
             queryChanged: queryChanged,
             queryClear: queryClear,
-            phoneDetails: phoneDetails,
-            phonesSearch: phonesSearch
+            collectionDetails: collectionDetails
         });
 
         init();
 
         function init() {
-            vm.phones = items;
-            vm.phonesFilter = items;
+            vm.items = items;
+            vm.itemsFilter = items;
             vm.clear = false;
         }
 
@@ -38,13 +37,8 @@
             vm.clear = false;
         }
 
-        function phoneDetails(item) {
-            $state.go('root.phone-details', {item: item});
-        }
-
-
-        function phonesSearch() {
-            $state.go('root.phones-search');
+        function collectionDetails(item) {
+            $state.go('root.collection-details', {item: item});
         }
     }
 })();

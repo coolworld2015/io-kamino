@@ -3,11 +3,11 @@
 
     angular
         .module('app')
-        .controller('PhonesSearchCtrl', PhonesSearchCtrl);
+        .controller('CollectionSearchCtrl', CollectionSearchCtrl);
 
-    PhonesSearchCtrl.$inject = ['$state', '$ionicLoading'];
+    CollectionSearchCtrl.$inject = ['$state', '$ionicLoading'];
 
-    function PhonesSearchCtrl($state, $ionicLoading) {
+    function CollectionSearchCtrl($state, $ionicLoading) {
         var vm = this;
 
         angular.extend(vm, {
@@ -21,7 +21,7 @@
 
         function init() {
             vm.finds = true;
-            vm.search = 'phone';
+            vm.search = 'name';
         }
 
         function change() {
@@ -50,7 +50,7 @@
             $ionicLoading.show({
                 template: '<ion-spinner></ion-spinner>'
             });
-            $state.go('root.phones-search-results', {name: vm.name, search: vm.search, finds: true});
+            $state.go('root.collection-search-results', {name: vm.name, search: vm.search, finds: true});
         }
     }
 })();

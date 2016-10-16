@@ -5,9 +5,9 @@
         .module('app')
         .controller('LoginCtrl', LoginCtrl);
 
-    LoginCtrl.$inject = ['$ionicLoading', '$rootScope', '$http', '$q', '$state', 'UsersService', 'AuditService'];
+    LoginCtrl.$inject = ['$ionicLoading', '$rootScope', '$http', '$q', '$state'];
 
-    function LoginCtrl($ionicLoading, $rootScope, $http, $q, $state, UsersService, AuditService) {
+    function LoginCtrl($ionicLoading, $rootScope, $http, $q, $state) {
         var vm = this;
 
         angular.extend(vm, {
@@ -74,22 +74,16 @@
 												name: vm.name,
 												pass: vm.pass
 											};
-											$state.go('root.home');
+											$state.go('root.collection');
 											$ionicLoading.hide();
 										})
-										.catch(function (reject) {
-											return $q.reject(reject);
-										});
+										.catch(errorHandler);
 
 								})
-								.catch(function (reject) {
-									return $q.reject(reject);
-								});
+								.catch(errorHandler);
 																			
 					})
-					.catch(function (reject) {
-						return $q.reject(reject);
-					});
+					.catch(errorHandler);
 		}
 			
         function change() {

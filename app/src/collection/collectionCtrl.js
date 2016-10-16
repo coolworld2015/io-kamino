@@ -3,21 +3,20 @@
 
     angular
         .module('app')
-        .controller('AuditCtrl', AuditCtrl);
+        .controller('CollectionCtrl', CollectionCtrl);
 
-    AuditCtrl.$inject = ['$scope', '$rootScope', '$state', 'AuditService', '$ionicLoading'];
+    CollectionCtrl.$inject = ['$scope', '$rootScope', '$state', 'CollectionService', '$ionicLoading'];
 
-    function AuditCtrl($scope, $rootScope, $state, AuditService, $ionicLoading) {
+    function CollectionCtrl($scope, $rootScope, $state, CollectionService, $ionicLoading) {
         var vm = this;
 
         angular.extend(vm, {
             init: init,
             showSearch: showSearch,
+ 
             doRefresh: doRefresh,
             queryClear: queryClear,
-            queryChanged: queryChanged,
-            auditDetails: auditDetails,
-			_errorHandler: errorHandler
+            queryChanged: queryChanged
         });
 
         init();
@@ -27,18 +26,17 @@
                 template: '<ion-spinner></ion-spinner>'
             });
 
-            vm.audits = [];
-            vm.auditFilter = [];
+            vm.items = [];
+            vm.itemsFilter = [];
             vm.clear = false;
             vm.searchShowed = false;
-            $rootScope.raisedError = false;
 
-            AuditService.getAudit()
-                .then(function (result) {
-                    vm.audits = result.data;
+            CollectionService.kaminoGetFiles()
+                .then(function (results) {
+                    vm.items = results;
                     $ionicLoading.hide();
                 })
-                .catch(errorHandler);
+				.catch(errorHandler);
         }
 
         function showSearch() {
@@ -46,14 +44,15 @@
         }
 
         function doRefresh() {
-            vm.audits = [];
+            vm.items = [];
+            vm.itemsFilter = [];			
             vm.clear = false;
-            AuditService.getAudit()
-                .then(function (result) {
-                    vm.audits = result.data;
-                    $scope.$broadcast('scroll.refreshComplete');
+            CollectionService.kaminoGetFiles()
+                .then(function (results) {
+                    vm.items = results;
+                    $ionicLoading.hide();
                 })
-                .catch(errorHandler);
+				.catch(errorHandler);
         }
 
         function queryChanged() {
@@ -67,14 +66,10 @@
             vm.clear = false;
         }
 
-        function auditDetails(item) {
-            $state.go('root.audit-details', {item: item});
-        }
-
         function errorHandler() {
-            $rootScope.raisedError = true;
+            $rootScope.loading = false;
+            $rootScope.myError = true;
             $ionicLoading.hide();
         }
-
     }
 })();
