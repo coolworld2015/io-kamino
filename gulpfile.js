@@ -23,7 +23,7 @@ gulp.task('index', function () {
 });
 
 gulp.task('pic', function () {
-    return gulp.src('./app/*.jpg')
+    return gulp.src('./app/*.png')
         .pipe(gulp.dest('./build/app'))
 });
 
