@@ -1,0 +1,42 @@
+<ion-view view-title="{{collectionSubCtrl.folder}} ({{collectionSubCtrl.itemsFilter.length}} / {{collectionSubCtrl.filesAndFolders.length}})"
+          ng-click="collectionSubCtrl.queryClear()">
+
+    <ion-nav-buttons side="secondary">
+        <button class="button button-icon ion-navicon"
+                ng-click="collectionSubCtrl.showSearch()">
+        </button>
+    </ion-nav-buttons>
+
+    <div class="bar bar-subheader item-input-inset bar-light">
+        <label class="item-input-wrapper">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="search" ng-model="collectionSubCtrl.query.name" ng-change="collectionSubCtrl.queryChanged()"
+                   placeholder="Search">
+            <i class="ion-close-round" ng-show="collectionSubCtrl.clear"></i>
+        </label>
+    </div>
+
+    <ion-content class="has-subheader">
+
+        <ion-refresher on-refresh="collectionSubCtrl.doRefresh()"></ion-refresher>
+
+        <ion-list>
+            <div collection-repeat="item in (collectionSubCtrl.itemsFilter = (collectionSubCtrl.filesAndFolders | filter: collectionSubCtrl.query))"
+                    type="item-text-wrap" ng-click="collectionSubCtrl.itemDetails(item)">
+ 
+                <a class="item item-thumbnail-left">
+                    <img ng-src="{{collectionSubCtrl.getThumbnailURI(item)}}" style="border-radius:20%">
+                    <h2 ng-show="item.size" style="margin-top: 20px; font-weight: bold;">{{item.name}}</h2>
+                    <h2 ng-show="!item.size" style="margin-top: 35px; font-weight: bold;">{{item.name}}</h2>
+                    <p ng-show="item.size">{{item.size/1024 | number:2}} Kb</p>
+                </a>
+
+			</div>
+		</ion-list>
+    </ion-content>
+
+    <div ng-if="collectionSubCtrl.searchShowed" class="badge-div" ng-click="collectionSubCtrl.itemsSearch()">
+        <span class="badge-icon ion-search"></span>
+    </div>
+
+</ion-view>

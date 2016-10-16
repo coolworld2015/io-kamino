@@ -3,11 +3,11 @@
 
     angular
         .module('app')
-        .controller('CollectionCtrl', CollectionCtrl);
+        .controller('CollectionSubCtrl', CollectionSubCtrl);
 
-    CollectionCtrl.$inject = ['$scope', '$rootScope', '$state', 'CollectionService', '$ionicLoading'];
+    CollectionSubCtrl.$inject = ['$scope', '$rootScope', '$state', 'CollectionService', '$ionicLoading'];
 
-    function CollectionCtrl($scope, $rootScope, $state, CollectionService, $ionicLoading) {
+    function CollectionSubCtrl($scope, $rootScope, $state, CollectionService, $ionicLoading) {
         var vm = this;
 
         angular.extend(vm, {
@@ -26,8 +26,10 @@
             $ionicLoading.show({
                 template: '<ion-spinner></ion-spinner>'
             });
-
-            vm.filesAndFolders = [];
+			
+			vm.folder = $rootScope.folder;
+            
+			vm.filesAndFolders = [];
             vm.itemsFilter = [];
             vm.clear = false;
             vm.searchShowed = false;
@@ -45,8 +47,7 @@
 						
 						vm.filesAndFolders = [].concat(vm.folders, vm.filesOnly);
 					}
- 
-					console.log(vm);	
+
                     $ionicLoading.hide();
                 })
 				.catch(errorHandler);
@@ -77,7 +78,7 @@
 		}
 		
 		function itemDetails(item) {
-            $state.go('root.collection-details', {item: item});
+            $state.go('root.collection-sub-details', {item: item});
         }
 		
         function showSearch() {

@@ -1,4 +1,4 @@
-<ion-view view-title="{{collectionDetailsCtrl.name}}">
+<ion-view view-title="{{collectionSubDetailsCtrl.name}}">
     <ion-nav-buttons side="secondary">
         <button class="button button-icon ion-navicon"
                 ng-click="data.showDelete = !data.showDelete; data.showReorder = false;">
@@ -6,39 +6,39 @@
     </ion-nav-buttons>
 
     <ion-content class="padding">
-        <div class="list" ng-show="collectionDetailsCtrl.mimeType != 'application/x.wd.dir'">
+        <div class="list">
 			<label class="item">
-				<img ng-src="{{collectionDetailsCtrl.getThumbnailURI()}}" style="width:100%; border-radius:5%">
+				<img ng-src="{{collectionSubDetailsCtrl.getThumbnailURI()}}" style="width:100%; border-radius:5%">
 			</label>
   						
             <label class="item item-input">
                 <span class="input-label"><b>Name:</b></span>
                 <input type="text"
-                       ng-model="collectionDetailsCtrl.name">
+                       ng-model="collectionSubDetailsCtrl.name">
             </label>
 			
             <label class="item item-input">
                 <span class="input-label"><b>Size:</b></span>
                 <input type="text"
-                       ng-model="collectionDetailsCtrl.size">
+                       ng-model="collectionSubDetailsCtrl.size">
             </label>
 			
             <label class="item item-input">
                 <span class="input-label"><b>Extension:</b></span>
                 <input type="text"
-                       ng-model="collectionDetailsCtrl.extension">
+                       ng-model="collectionSubDetailsCtrl.extension">
             </label>
 
             <label class="item item-input">
                 <span class="input-label"><b>MimeType:</b></span>
                 <input type="text"
-                       ng-model="collectionDetailsCtrl.mimeType">
+                       ng-model="collectionSubDetailsCtrl.mimeType">
             </label>
 
             <label class="item item-input">
                 <span class="input-label"><b>mTime:</b></span>
                 <input type="text"
-                       ng-model="collectionDetailsCtrl.mTime">
+                       ng-model="collectionSubDetailsCtrl.mTime">
             </label>
         </div>
         <br>

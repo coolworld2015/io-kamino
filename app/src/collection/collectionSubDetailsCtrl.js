@@ -3,11 +3,11 @@
 
     angular
         .module('app')
-        .controller('CollectionDetailsCtrl', CollectionDetailsCtrl);
+        .controller('CollectionSubDetailsCtrl', CollectionSubDetailsCtrl);
 
-    CollectionDetailsCtrl.$inject = ['$rootScope', '$stateParams', '$filter', '$state'];
+    CollectionSubDetailsCtrl.$inject = ['$rootScope', '$stateParams', '$filter', '$state'];
 
-    function CollectionDetailsCtrl($rootScope, $stateParams, $filter, $state) {
+    function CollectionSubDetailsCtrl($rootScope, $stateParams, $filter, $state) {
         var vm = this;
 
         angular.extend(vm, {
@@ -27,18 +27,12 @@
 				$state.go('root.collection-sub');
 			}
 			vm.size = $filter('number')(vm.size/1024, 2) + ' Kb';
-			$rootScope.folder = vm.name;
          }
 		
 		function getThumbnailURI(item, size = 400) {
 			var fileId = vm.id;
 			var uri;
-			
-			if (!vm.extension || vm.extension == '.txt' || vm.extension == ".pptx") {
-				uri = './no-img.png';
-				return uri;
-			}	
-			
+
 			uri = $rootScope.deviceURI + 
 				'/sdk/v2/files/' + fileId + 
 				'/content?width=' + size + 

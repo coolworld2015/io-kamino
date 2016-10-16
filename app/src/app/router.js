@@ -42,7 +42,7 @@
                 }
             })
 			
-            .state('root.collection-details', {
+			.state('root.collection-details', {
                 url: '/collection-details',
                 data: {
                     requireLogin: true
@@ -53,6 +53,35 @@
                         templateUrl: 'collection/collection-details.html',
                         controller: 'CollectionDetailsCtrl',
                         controllerAs: 'collectionDetailsCtrl'
+                    }
+                }
+            })
+			
+             .state('root.collection-sub', {
+                url: '/collection-sub',
+                data: {
+                    requireLogin: true
+                },
+                views: {
+                    'root-collection': {
+                        templateUrl: 'collection/collection-sub.html',
+                        controller: 'CollectionSubCtrl',
+                        controllerAs: 'collectionSubCtrl'
+                    }
+                }
+            })
+			
+            .state('root.collection-sub-details', {
+                url: '/collection-sub-details',
+                data: {
+                    requireLogin: true
+                },
+                params: {item: {}},
+                views: {
+                    'root-collection': {
+                        templateUrl: 'collection/collection-sub-details.html',
+                        controller: 'CollectionSubDetailsCtrl',
+                        controllerAs: 'collectionSubDetailsCtrl'
                     }
                 }
             })
