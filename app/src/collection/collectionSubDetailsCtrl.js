@@ -28,8 +28,9 @@
 			}
 			vm.size = $filter('number')(vm.size/1024, 2) + ' Kb';
          }
-		
-		function getThumbnailURI(item, size = 400) {
+
+		function getThumbnailURI() {
+			var size = 400;
 			var fileId = vm.id;
 			var uri;
 

@@ -53,7 +53,8 @@
 				.catch(errorHandler);
         }
 		
-		function getThumbnailURI(item, size = 400) {
+		function getThumbnailURI(item) {
+		    var size = 400;
 			if (item) {
 				var fileId = item.id;
 				var uri;
