@@ -37,10 +37,12 @@
             CollectionService.kaminoGetFilesRoot()
                 .then(function (results) {
 					if (results) {
-						vm.folders = results.filter(function(el){
-							return el.mimeType == 'application/x.wd.dir'
-						});
-						
+						vm.folders = results.filter(function(el) {
+                            return (el.mimeType == 'application/x.wd.dir') && (el.name == 'Photos1')
+                                || (el.name == 'Photos2') || (el.name == 'Photos2')
+                                || (el.name == 'Photos3')|| (el.name == 'Videos');
+                        });
+
 						vm.filesOnly = results.filter(function(el){
 							return el.mimeType != 'application/x.wd.dir'
 						});
@@ -96,9 +98,11 @@
             CollectionService.kaminoGetFilesRoot()
                 .then(function (results) {
 					if (results) {
-						vm.folders = results.filter(function(el){
-							return el.mimeType == 'application/x.wd.dir'
-						});
+                        vm.folders = results.filter(function(el) {
+                            return (el.mimeType == 'application/x.wd.dir') && (el.name == 'Photos1')
+                                || (el.name == 'Photos2') || (el.name == 'Photos2')
+                                || (el.name == 'Photos3')|| (el.name == 'Videos');
+                        });
 						
 						vm.filesOnly = results.filter(function(el){
 							return el.mimeType != 'application/x.wd.dir'

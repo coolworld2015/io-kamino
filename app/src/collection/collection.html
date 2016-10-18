@@ -25,7 +25,7 @@
                     type="item-text-wrap" ng-click="collectionCtrl.itemDetails(item)">
  
                 <a class="item item-thumbnail-left">
-                    <img ng-src="{{collectionCtrl.getThumbnailURI(item)}}" style="border-radius:20%">
+                    <img ng-src="{{collectionCtrl.getThumbnailURI(item)}}" style="border-radius:15%">
                     <h2 ng-show="item.size" style="margin-top: 20px; font-weight: bold;">{{item.name}}</h2>
                     <h2 ng-show="!item.size" style="margin-top: 35px; font-weight: bold;">{{item.name}}</h2>
                     <p ng-show="item.size">{{item.size/1024 | number:2}} Kb</p>
